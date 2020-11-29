@@ -1,16 +1,13 @@
 <html>
-    <head><title>Aplicacion para dibujar</title></head>
-    <body>
-        <script type= "module">
-            import {create} from "./Modulo/canvas.js";
-            import {ObjGeometrico} from "./Modulo/ObjetoGeometrico.js";
-            import {DBJCuadrado} from "./Modulo/ObjetoGeometrico.js";
-            import {DBJCirculo} from "./Modulo/ObjetoGeometrico.js";
-            let x=create("dibujo",document.body,500,400);
-            
-           ObjGeometrico.DBJCuadrado(x);
-            ObjGeometrico.DBJCirculo(x);
-            
-        </script>
-    </body>
+<head>
+	<title>Aplicacion para dibujar figuras geometricas</title>
+</head>
+<body>
+	
+
+	  <script type="module">
+		import {ObjGeo} from "./Modulo/ObjetoGeometrico.js"; 
+		var p = new ObjGeo(500,400);
+	  </script>
+</body>
 </html>
