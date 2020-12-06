@@ -1,0 +1,8 @@
+{ 
+    "Peliculas" : [ {"Genero" : "terror", "Nombre" : "Actividad paranormal" },
+                 {"Genero" : "Scfi", "Nombre" : "Star wars" },
+           		 {"Genero" : "Accion", "Nombre" : "James Bond" },
+                 {"Genero" : "Comedia", "Nombre" : "Pollitos en fuga" },
+             	 {"Genero" : "Romance", "Nombre" : "3msc" },
+                 {"Genero" : "Terror", "Nombre" : "Arrastrame al infierno" }]
+} 
