@@ -30,21 +30,21 @@ document.querySelector("#file-input").addEventListener('change', function() {
 		alert('Error : Incorrect file type');
 		return;
 	}
-	// we will now read the file
+	
 	var reader = new FileReader();
-	// file reading started
+	
 	reader.addEventListener('loadstart', function() {
 	    document.querySelector("#file-input-label").style.display = 'none'; 
 	});
-	// file reading finished successfully
+	
 	reader.addEventListener('load', function(e) {
 		var text = e.target.result;
 		
-		// Create table object. 
+	 
 		var a = document.createElement("TABLE"); 
 		a.setAttribute("id", "MyTable"); 
 		document.getElementById("texto").appendChild(a)
-		var b = document.createElement("TR");//creo el primer renglon por default 
+		var b = document.createElement("TR");
 		b.setAttribute("id", 100); 
 		document.getElementById("MyTable").appendChild(b); 
   
@@ -54,30 +54,30 @@ document.querySelector("#file-input").addEventListener('change', function() {
         var palabra="";
         while(iter<text.length)
         {
-            palabra+=text[iter];//voy leyendo caracteres y armando mi palabra
+            palabra+=text[iter];
 
-			if(text[iter]==';' && palabra!="")//si encuentro un nuevo valor
-			{ //guardo mi palabra y limpio mi memoria,pero solo si existe!
+			if(text[iter]==';' && palabra!="")
+			{ 
 				var c = document.createElement("TD"); 
 				var d = document.createTextNode(palabra.substring(0, palabra.length-1)); 
 				c.appendChild(d); 
 				document.getElementById(100+lineas).appendChild(c);
-				palabra="";//limpiando la memoria
+				palabra="";
 				valores++; 
 			}
 
-        	if(text[iter]=='\n')//si encuentro un salto de linea
-            {//creo una nueva linea en mi tabla           
+        	if(text[iter]=='\n')
+            {         
             var b = document.createElement("TR"); 
-			lineas++; //aumento el contador de lineas en mi tabla
+			lineas++; 
 			b.setAttribute("id", lineas+100);
             document.getElementById("MyTable").appendChild(b); 
 			}
-        iter++; //paso al siguiente caracter
+        iter++; 
         }
 	});
 
-	// read as text file
+
 	reader.readAsText(file);
 });       
 </script>
@@ -93,16 +93,16 @@ xmlhttp.onreadystatechange = function() {
   if (this.readyState == 4 && this.status == 200) {
     var myObj = JSON.parse(this.responseText);
     	
-	// Create table object. 
+	
 	var a = document.createElement("TABLE"); 
 	a.setAttribute("id", "MyTablejson"); 
 	document.getElementById("json").appendChild(a)
 	
 		var lineas=0;
 		var k=0;
-			//creo el titulo para la tabla
+			
 			var b = document.createElement("TR"); 
-			lineas++; //aumento el contador de lineas en mi tabla
+			lineas++; 
 			b.setAttribute("id", lineas+200);
             document.getElementById("MyTablejson").appendChild(b); 
 			
@@ -118,9 +118,9 @@ xmlhttp.onreadystatechange = function() {
 
 		while(myObj.Peliculas[k] != undefined)
         {
-			//creo una nueva linea en mi tabla           
+			          
             var b = document.createElement("TR"); 
-			lineas++; //aumento el contador de lineas en mi tabla
+			lineas++; 
 			b.setAttribute("id", lineas+200);
             document.getElementById("MyTablejson").appendChild(b); 
 			
