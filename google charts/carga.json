@@ -1,0 +1,8 @@
+{ 
+    "phones" : [ {"mes" : "January", "ventas" : "4" },
+                 {"mes" : "February", "ventas" : "5" },
+           		 {"mes" : "March", "ventas" : "6" },
+                 {"mes" : "April", "ventas" : "7" },
+             	 {"mes" : "May", "ventas" : "8" },
+                 {"mes" : "June", "ventas" : "9" }]
+} 

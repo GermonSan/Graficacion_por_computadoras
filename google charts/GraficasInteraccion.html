@@ -1,0 +1,234 @@
+<html>
+  <head>
+    <!--Load the AJAX API-->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <style>
+      .box {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: start;
+      }
+      
+    </style>
+  </head>
+  <body>
+    <div class="box">
+      <!--Div that will hold the pie chart-->
+    <div id="chart"></div>
+    <button id="cargar">cargar</button>
+  
+    <!--Div that will hold the bar chart-->
+    <div id="chart2"></div>
+    <button id="cargar2">cargar</button>
+   
+    <!--Div that will hold the bar chart-->
+    <div id="chart3"></div>
+    <button id="cargar3">cargar</button>
+   
+    <!--Div that will hold the bar chart-->
+    <div id="chart4"></div>
+    <button id="cargar4">cargar</button>
+    
+    <!--Div that will hold the bar chart-->
+    <div id="chart5"></div>
+    <button id="cargar5">cargar</button>
+  </div>
+  <hr>
+  <h1>
+    Semana 2 de google charts
+  </h1>
+  <div class="box">
+    <div id="chart6"></div>
+    <button id="cargar6">cargar</button>
+    
+    <!--Div that will hold the bar chart-->
+    <div id="chart7"></div>
+    <button id="cargar7">cargar</button>
+    
+    <!--Div that will hold the bar chart-->
+    <div id="chart8"></div>
+    <button id="cargar8">cargar</button>
+  </div>
+  
+    
+    <script type="text/javascript">
+      // Load the Visualization API and the corechart package.
+      google.charts.load('current', {'packages':['corechart']});
+      // Set a callback to run when the Google Visualization API is loaded.
+      google.charts.setOnLoadCallback(drawChart);
+      // Callback that creates and populates a data table,
+      // instantiates the pie chart, passes in the data and
+      // draws it.
+      function drawChart() {
+        // Create the data table.
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Topping');
+        data.addColumn('number', 'Slices');
+        data.addRows([
+          ['Mushrooms', 3],
+          ['Onions', 1],
+          ['Olives', 1],
+          ['Zucchini', 1],
+          ['Pepperoni', 2]
+        ]);
+        // Set chart options
+        var options = {'title':'How Much Pizza I Ate Last Night',
+                       'width':500,
+                       'height':300};
+
+        // Instantiate and draw our chart, passing in some options.
+        var chart = new google.visualization.PieChart(document.getElementById('chart'));
+        chart.draw(data, options);
+
+        var chart2 = new google.visualization.BarChart(document.getElementById('chart2'));
+        chart2.draw(data, options);
+
+        var chart3 = new google.visualization.LineChart(document.getElementById('chart3'));
+        chart3.draw(data, options);
+
+        var chart4 = new google.visualization.AreaChart(document.getElementById('chart4'));
+        chart4.draw(data, options);
+
+        var chart5 = new google.visualization.ScatterChart(document.getElementById('chart5'));
+        chart5.draw(data, options);
+
+        //las 3 nuevas graficas de la semana 2 de este tema
+        //tipo 1: una dota dibujada con chart.draw()
+        var options2 = {'title':'semana 2 ejemplo',
+                       'width':500,
+                       'height':300,
+                       pieHole: 0.4,};
+        var chart6 = new google.visualization.PieChart(document.getElementById('chart6'));
+        chart6.draw(data, options2);
+      }
+
+      //tipo 2: ChartWrapper
+      google.charts.load('current');   // Don't need to specify chart libraries!
+      google.charts.setOnLoadCallback(drawVisualization);
+
+      function drawVisualization() {
+        var wrapper = new google.visualization.ChartWrapper({
+          chartType: 'SteppedAreaChart',
+          dataTable: [['', 'Germany', 'USA', 'Brazil', 'Canada', 'France', 'RU'],
+                      ['', 700, 300, 400, 500, 600, 800]],
+          options: {'title': 'Countries'},
+          containerId: 'chart7'
+        });
+        wrapper.draw();
+      }
+      //tipo 3: drawChart
+      google.charts.load('current');   // Don't need to specify chart libraries!
+      google.charts.setOnLoadCallback(drawVisualization2);
+      function drawVisualization2() {
+        google.visualization.drawChart({
+         "containerId": "chart8",
+         "dataTable": [['', 'Germany', 'USA', 'Brazil', 'Canada', 'France', 'RU'],
+         ['', 700, 300, 400, 500, 600, 800]],
+         "chartType": "Table",
+         "options": {
+            "alternatingRowStyle": true,
+            "showRowNumber" : true
+         }
+       });
+      }
+    google.charts.setOnLoadCallback(drawVisualization);
+
+      document.getElementById('cargar').addEventListener('click', function () {
+        var lista = [];
+        var lista2 = [];
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                var myObj = JSON.parse(this.responseText);
+                var k = 0;
+                ///leo los datos que quiero del json
+                while (myObj.phones[k] != undefined) {
+                    lista.push(myObj.phones[k].mes);
+                    lista2.push(myObj.phones[k].ventas);
+                    k++;
+                }
+
+            }
+        };
+        //el tercer parametro es para decir si es asincrona la llamada
+        xmlhttp.open("GET", "jsontest.json", false);
+        xmlhttp.send();
+
+        //ya tengo los valores en lista, ahora a graficarlos
+        var options = {'title':'Nueva entrada desde archivo',
+               'width':500,
+               'height':300};
+        
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'mes');
+        data.addColumn('number', 'ventas');
+        console.log(lista);
+        console.log(lista2);
+
+        //cambiar a dinamico
+
+        for(var x=0;x<6;x++)
+        {
+          console.log([lista[x], parseInt(lista2[x])]);
+          data.addRow([lista[x], parseInt(lista2[x])]);
+        }
+         
+       // config.data.datasets.push(newDataset);
+       // window.myLine.update();
+
+        var chart = new google.visualization.PieChart(document.getElementById('chart'));
+        chart.draw(data, options);
+    });
+
+    document.getElementById('cargar2').addEventListener('click', function () {
+      var lista = [];
+      var lista2 = [];
+      var xmlhttp = new XMLHttpRequest();
+      xmlhttp.onreadystatechange = function () {
+          if (this.readyState == 4 && this.status == 200) {
+              var myObj = JSON.parse(this.responseText);
+              var k = 0;
+              ///leo los datos que quiero del json
+              while (myObj.phones[k] != undefined) {
+                  lista.push(myObj.phones[k].mes);
+                  lista2.push(myObj.phones[k].ventas);
+                  k++;
+              }
+
+          }
+      };
+      //el tercer parametro es para decir si es asincrona la llamada
+      xmlhttp.open("GET", "jsontest.json", false);
+      xmlhttp.send();
+
+      //ya tengo los valores en lista, ahora a graficarlos
+      var options = {'title':'Nueva entrada desde archivo',
+             'width':500,
+             'height':300};
+      
+      var data = new google.visualization.DataTable();
+      data.addColumn('string', 'mes');
+      data.addColumn('number', 'ventas');
+      console.log(lista);
+      console.log(lista2);
+
+      //cambiar a dinamico
+
+      for(var x=0;x<6;x++)
+      {
+        console.log([lista[x], parseInt(lista2[x])]);
+        data.addRow([lista[x], parseInt(lista2[x])]);
+      }
+       
+     // config.data.datasets.push(newDataset);
+     // window.myLine.update();
+    
+     var chart2 = new google.visualization.BarChart(document.getElementById('chart2'));
+     chart2.draw(data, options);
+
+  });
+    </script>
+
+  </body>
+</html>
