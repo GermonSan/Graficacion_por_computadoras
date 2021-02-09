@@ -1,190 +1,70 @@
-<!doctype html>
 <html>
-
-<head>
-	<title>Bubble Chart</title>
-	<script src="./chart.min.js"></script>
-	<script src="./utils.js"></script>
-	<style type="text/css">
-		canvas{
-			-moz-user-select: none;
-			-webkit-user-select: none;
-			-ms-user-select: none;
-		}
-	</style>
-</head>
-
-<body>
-	<div id="container" style="width: 75%;">
-		<canvas id="canvas"></canvas>
-	</div>
-	<button id="randomizeData">Randomize Data</button>
-	<button id="addDataset">Add Dataset</button>
-	<button id="removeDataset">Remove Dataset</button>
-	<button id="addData">Add Data</button>
-	<button id="removeData">Remove Data</button>
-	<script>
-		var DEFAULT_DATASET_SIZE = 7;
-
-		var addedCount = 0;
-		var color = Chart.helpers.color;
-		var bubbleChartData = {
-			datasets: [{
-				label: 'My First dataset',
-				backgroundColor: color(window.chartColors.red).alpha(0.5).rgbString(),
-				borderColor: window.chartColors.red,
-				borderWidth: 1,
-				data: [{
-					x: randomScalingFactor(),
-					y: randomScalingFactor(),
-					r: Math.abs(randomScalingFactor()) / 5,
-				}, {
-					x: randomScalingFactor(),
-					y: randomScalingFactor(),
-					r: Math.abs(randomScalingFactor()) / 5,
-				}, {
-					x: randomScalingFactor(),
-					y: randomScalingFactor(),
-					r: Math.abs(randomScalingFactor()) / 5,
-				}, {
-					x: randomScalingFactor(),
-					y: randomScalingFactor(),
-					r: Math.abs(randomScalingFactor()) / 5,
-				}, {
-					x: randomScalingFactor(),
-					y: randomScalingFactor(),
-					r: Math.abs(randomScalingFactor()) / 5,
-				}, {
-					x: randomScalingFactor(),
-					y: randomScalingFactor(),
-					r: Math.abs(randomScalingFactor()) / 5,
-				}, {
-					x: randomScalingFactor(),
-					y: randomScalingFactor(),
-					r: Math.abs(randomScalingFactor()) / 5,
-				}]
-			}, {
-				label: 'My Second dataset',
-				backgroundColor: color(window.chartColors.orange).alpha(0.5).rgbString(),
-				borderColor: window.chartColors.orange,
-				borderWidth: 1,
-				data: [{
-					x: randomScalingFactor(),
-					y: randomScalingFactor(),
-					r: Math.abs(randomScalingFactor()) / 5,
-				}, {
-					x: randomScalingFactor(),
-					y: randomScalingFactor(),
-					r: Math.abs(randomScalingFactor()) / 5,
-				}, {
-					x: randomScalingFactor(),
-					y: randomScalingFactor(),
-					r: Math.abs(randomScalingFactor()) / 5,
-				}, {
-					x: randomScalingFactor(),
-					y: randomScalingFactor(),
-					r: Math.abs(randomScalingFactor()) / 5,
-				}, {
-					x: randomScalingFactor(),
-					y: randomScalingFactor(),
-					r: Math.abs(randomScalingFactor()) / 5,
-				}, {
-					x: randomScalingFactor(),
-					y: randomScalingFactor(),
-					r: Math.abs(randomScalingFactor()) / 5,
-				}, {
-					x: randomScalingFactor(),
-					y: randomScalingFactor(),
-					r: Math.abs(randomScalingFactor()) / 5,
-				}]
-			}]
-		};
-
-		window.onload = function() {
-			var ctx = document.getElementById('canvas').getContext('2d');
-			window.myChart = new Chart(ctx, {
-				type: 'bubble',
-				data: bubbleChartData,
-				options: {
-					responsive: true,
-					plugins: {
-						title: {
-							display: true,
-							text: 'Chart.js Bubble Chart'
-						},
-						tooltip: {
-							mode: 'point'
-						}
-					}
-				}
-			});
-		};
-
-		document.getElementById('randomizeData').addEventListener('click', function() {
-			bubbleChartData.datasets.forEach(function(dataset) {
-				dataset.data = dataset.data.map(function() {
-					return {
-						x: randomScalingFactor(),
-						y: randomScalingFactor(),
-						r: Math.abs(randomScalingFactor()) / 5,
-					};
-				});
-			});
-			window.myChart.update();
-		});
-
-		var colorNames = Object.keys(window.chartColors);
-		document.getElementById('addDataset').addEventListener('click', function() {
-			++addedCount;
-			var colorName = colorNames[bubbleChartData.datasets.length % colorNames.length];
-			var dsColor = window.chartColors[colorName];
-			var newDataset = {
-				label: 'My added dataset ' + addedCount,
-				backgroundColor: color(dsColor).alpha(0.5).rgbString(),
-				borderColor: dsColor,
-				borderWidth: 1,
-				data: []
-			};
-
-			for (var index = 0; index < DEFAULT_DATASET_SIZE; ++index) {
-				newDataset.data.push({
-					x: randomScalingFactor(),
-					y: randomScalingFactor(),
-					r: Math.abs(randomScalingFactor()) / 5,
-				});
-			}
-
-			bubbleChartData.datasets.push(newDataset);
-			window.myChart.update();
-		});
-
-		document.getElementById('addData').addEventListener('click', function() {
-			if (bubbleChartData.datasets.length > 0) {
-				for (var index = 0; index < bubbleChartData.datasets.length; ++index) {
-					bubbleChartData.datasets[index].data.push({
-						x: randomScalingFactor(),
-						y: randomScalingFactor(),
-						r: Math.abs(randomScalingFactor()) / 5,
-					});
-				}
-
-				window.myChart.update();
-			}
-		});
-
-		document.getElementById('removeDataset').addEventListener('click', function() {
-			bubbleChartData.datasets.splice(0, 1);
-			window.myChart.update();
-		});
-
-		document.getElementById('removeData').addEventListener('click', function() {
-			bubbleChartData.datasets.forEach(function(dataset) {
-				dataset.data.pop();
-			});
-
-			window.myChart.update();
-		});
-	</script>
-</body>
-
-</html>
+	<head>
+		<!--Load the AJAX API-->
+		<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+		<script type="text/javascript">
+		  // Load the Visualization API and the corechart package.
+		  google.charts.load('current', {'packages':['corechart']});
+		  // Set a callback to run when the Google Visualization API is loaded.
+		  google.charts.setOnLoadCallback(drawChart);
+		  // Callback that creates and populates a data table,
+		  // instantiates the pie chart, passes in the data and
+		  // draws it.
+		  function drawChart() {
+			// Create the data table.
+			var data = new google.visualization.DataTable();
+			data.addColumn('string', 'Topping');
+			data.addColumn('number', 'Slices');
+			data.addRows([
+			  ['Mushrooms', 3],
+			  ['Onions', 1],
+			  ['Olives', 1],
+			  ['Zucchini', 1],
+			  ['Pepperoni', 2]
+			]);
+			// Set chart options
+			var options = {'title':'How Much Pizza I Ate Last Night',
+						   'width':500,
+						   'height':300};
+	
+			// Instantiate and draw our chart, passing in some options.
+			var chart = new google.visualization.PieChart(document.getElementById('chart'));
+			chart.draw(data, options);
+	
+			var chart2 = new google.visualization.BarChart(document.getElementById('chart2'));
+			chart2.draw(data, options);
+	
+			var chart3 = new google.visualization.LineChart(document.getElementById('chart3'));
+			chart3.draw(data, options);
+	
+			var chart4 = new google.visualization.AreaChart(document.getElementById('chart4'));
+			chart4.draw(data, options);
+	
+			var chart5 = new google.visualization.ScatterChart(document.getElementById('chart5'));
+			chart5.draw(data, options);
+		  }
+		</script>
+	
+	  </head>
+	  <body>
+		  <!--Div that will hold the pie chart-->
+		<div id="chart"></div>
+		<button>cargar</button>
+		<hr> <!--Div that will hold the bar chart-->
+		<div id="chart2"></div>
+		<button>cargar</button>
+		<hr><!--Div that will hold the bar chart-->
+		<div id="chart3"></div>
+		<button>cargar</button>
+		<hr>
+		<!--Div that will hold the bar chart-->
+		<div id="chart4"></div>
+		<button>cargar</button>
+		<hr>
+		<!--Div that will hold the bar chart-->
+		<div id="chart5"></div>
+		<button>cargar</button>
+		<hr>
+	
+	  </body>
+	</html> 
